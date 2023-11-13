@@ -19,16 +19,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WaterCounter(modifier: Modifier = Modifier) {
+fun WaterCounter(modifier: Modifier = Modifier, increase: () -> Unit, decrease: () -> Unit, newCount: Int) {
     Column(modifier = modifier.padding(16.dp)) {
-        var count by rememberSaveable {
-            mutableStateOf(0)
+
+        if (newCount > 0) {
+            Text(
+                text = "You've had $newCount glasses.",
+                modifier = modifier.fillMaxWidth().padding(16.dp),
+                textAlign = TextAlign.Center
+            )
         }
-        Text(
-            text = "You've had $count glasses.",
-            modifier = modifier.fillMaxWidth().padding(16.dp),
-            textAlign = TextAlign.Center
-        )
 
         Row(
             modifier = Modifier
@@ -38,17 +38,17 @@ fun WaterCounter(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
             ) {
             Button(
-                onClick = { count++ },
+                onClick = increase,
                 modifier = Modifier.padding(top = 8.dp),
-                enabled = count < 10
+                enabled = newCount < 10
             ) {
                 Text(text = "Add one")
 
             }
             Button(
-                onClick = { count-- },
+                onClick = decrease,
                 modifier = Modifier.padding(top = 8.dp),
-                enabled = count > 0
+                enabled = newCount > 0
             ) {
                 Text(text = "delete")
 
@@ -61,5 +61,9 @@ fun WaterCounter(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, widthDp = 300, heightDp = 500)
 @Composable
 fun WaterCounterPreview() {
-    WaterCounter()
+    var count by rememberSaveable {
+        mutableStateOf(0)
+    }
+
+    WaterCounter(increase = {count++}, decrease = {count--}, newCount = count)
 }
