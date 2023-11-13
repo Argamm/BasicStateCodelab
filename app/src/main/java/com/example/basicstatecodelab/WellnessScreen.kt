@@ -13,5 +13,5 @@ fun WellnessScreen(modifier: Modifier = Modifier) {
         mutableStateOf(0)
     }
 
-    WaterCounter(increase = {count++}, decrease = {count--}, newCount = count)
+    WaterCounter(increase = {count++}, decrease = {count--}, newCount = count, clearCount = {count = 0})
 }
