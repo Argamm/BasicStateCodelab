@@ -8,9 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.basicstatecodelab.model.WellnessTask
 
-private fun getWellnessTasks() = List(30) { i -> WellnessTask(i, "Task # $i") }
-
-
 @Composable
 fun WellnessTasksList(
     modifier: Modifier = Modifier,
@@ -38,6 +35,7 @@ fun WellnessTasksList(
 fun WellnessTaskListPreview() {
     WellnessTasksList(
         onCloseTask = {},
-        onCheckedTask = { task, checked ->  },
-        list = emptyList())
+        onCheckedTask = { _, _ -> },
+        list = emptyList()
+    )
 }
